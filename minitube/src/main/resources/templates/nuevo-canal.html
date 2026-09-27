@@ -1,0 +1,105 @@
+<!--<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear canal</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+    <a href="/" class="logo">MiniTube</a>
+</header>
+
+<main class="contenedor pequeno">
+
+    <div class="form-card">
+        <h1>Crear mi canal</h1>
+
+        <form action="/canales" method="post">
+
+            <label>Nombre del canal</label>
+            <input type="text"
+                   name="nombre"
+                   placeholder="Ej: Kelvin Tech"
+                   required>
+
+            <label>Usuario</label>
+            <input type="text"
+                   name="usuario"
+                   placeholder="Ej: kelvintech"
+                   required>
+
+            <label>Descripción</label>
+            <textarea name="descripcion"
+                      placeholder="¿De qué trata tu canal?"
+                      required></textarea>
+
+            <button type="submit" class="boton">
+                Crear canal
+            </button>
+
+        </form>
+    </div>
+
+</main>
+</body>
+</html>-->
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear canal</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+    <a href="/" class="logo">MiniTube</a>
+    <a href="/" class="boton boton-secundario">Volver al inicio</a>
+</header>
+
+<main class="contenedor pequeno">
+
+    <div class="form-card">
+        <h1>Crear mi canal</h1>
+
+        <form action="/canales" method="post">
+
+            <label for="nombre">Nombre del canal</label>
+            <input id="nombre"
+                   type="text"
+                   name="nombre"
+                   placeholder="Ej: Kelvin Tech"
+                   required>
+
+            <label for="usuario">Usuario</label>
+            <input id="usuario"
+                   type="text"
+                   name="usuario"
+                   placeholder="Ej: kelvintech"
+                   required>
+
+            <label for="descripcion">Descripción</label>
+            <textarea id="descripcion"
+                      name="descripcion"
+                      placeholder="¿De qué trata tu canal?"
+                      required></textarea>
+
+            <label for="urlPortada">URL de portada (opcional)</label>
+            <input id="urlPortada"
+                   type="url"
+                   name="urlPortada"
+                   placeholder="https://ejemplo.com/portada.jpg">
+
+            <button type="submit" class="boton">
+                Crear canal
+            </button>
+
+        </form>
+    </div>
+
+</main>
+</body>
+</html>

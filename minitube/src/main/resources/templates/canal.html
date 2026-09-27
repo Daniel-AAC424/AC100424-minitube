@@ -1,0 +1,126 @@
+	<!DOCTYPE html>
+	<html lang="es" xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <meta charset="UTF-8">
+	    <title th:text="${canal.nombre}"></title>
+	    <link rel="stylesheet" href="/css/style.css">
+	</head>
+	<body>
+
+	<header class="topbar">
+	    <a href="/" class="logo">MiniTube</a>
+	    <a href="/" class="boton boton-secundario">Volver al inicio</a>
+	</header>
+
+	<main class="contenedor">
+
+	    <img th:if="${!canal.urlPortada.isEmpty()}"
+	         th:src="${canal.urlPortada}"
+	         th:alt="'Portada de ' + ${canal.nombre}"
+	         class="portada-canal">
+
+	    <section class="perfil-canal">
+	        <div class="avatar grande">
+	            <span th:text="${#strings.substring(canal.nombre,0,1)}"></span>
+	        </div>
+
+	        <div>
+	            <h1 th:text="${canal.nombre}"></h1>
+	            <p class="usuario">@<span th:text="${canal.usuario}"></span></p>
+	            <p th:text="${canal.descripcion}"></p>
+
+	            <p class="total-videos" th:if="${canal.totalVideos == 1}">
+	                <strong>1</strong> video
+					<p class="total-videos" th:if="${canal.totalVideos == 1}">
+					    <strong>1</strong> video
+					</p>
+					<p class="total-videos" th:unless="${canal.totalVideos == 1}">
+					    <strong th:text="${canal.totalVideos}"></strong> videos
+					</p>
+	            </p>
+	            <p class="total-videos" th:unless="${canal.totalVideos == 1}">
+	                <strong th:text="${canal.totalVideos}"></strong> videos
+	            </p>
+	        </div>
+	    </section>
+
+	    <section class="agregar-video">
+	        <h2>Agregar video</h2>
+
+	        <form th:action="@{/canales/{id}/videos(id=${canal.id})}"
+	              method="post">
+
+	            <input type="text"
+	                   name="titulo"
+	                   placeholder="Título del video"
+	                   required>
+
+	            <input type="url"
+	                   name="urlYoutube"
+	                   placeholder="https://youtube.com/watch?v=..."
+	                   required>
+
+	            <label for="categoria">Categoría</label>
+	            <select id="categoria"
+	                    name="categoria"
+	                    required>
+	                <option value="">Selecciona una categoría</option>
+	                <option th:each="categoria : ${categorias}"
+	                        th:value="${categoria.name()}"
+	                        th:text="${categoria.etiqueta}"></option>
+	            </select>
+
+	            <button type="submit" class="boton">
+	                Agregar video
+	            </button>
+	        </form>
+	    </section>
+
+	    <section>
+	        <h2>Videos</h2>
+
+	        <div class="videos-grid">
+
+	            <article class="video-card"
+	                     th:each="video : ${canal.videos}">
+
+	                <div class="video-frame">
+	                    <iframe
+	                        th:src="@{'https://www.youtube.com/embed/'
+	                                  + ${video.youtubeId}}"
+	                        title="YouTube video"
+	                        allowfullscreen>
+	                    </iframe>
+	                </div>
+
+	                <div class="video-info">
+	                    <h3 th:text="${video.titulo}"></h3>
+	                    <span class="categoria-badge"
+	                          th:text="${video.categoria.etiqueta}"></span>
+	                </div>
+
+	                <form class="form-eliminar"
+	                      th:action="@{/canales/{canalId}/videos/{videoId}/eliminar(
+	                          canalId=${canal.id},
+	                          videoId=${video.id})}"
+	                      method="post"
+	                      onsubmit="return confirm('¿Eliminar este video?');">
+
+	                    <button type="submit"
+	                            class="boton boton-peligro">
+	                        Eliminar
+	                    </button>
+	                </form>
+
+	            </article>
+	        </div>
+
+	        <div class="vacio" th:if="${canal.videos.empty}">
+	            <h3>Este canal todavía no tiene videos</h3>
+	        </div>
+
+	    </section>
+
+	</main>
+	</body>
+	</html>
